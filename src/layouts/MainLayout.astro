@@ -1,0 +1,103 @@
+---
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = "Centro Ganesha — Sanación del cuerpo, la mente y el espíritu. Sesiones de Reiki, bienestar y armonización energética.",
+} = Astro.props;
+
+const fontsUrl =
+  "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap";
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="robots" content="index, follow" />
+    <meta
+      name="keywords"
+      content="reiki, bienestar, terapia energética, sanación, equilibrio energético, relajación, estrés, salud holística, reiki en Salto, reiki en Uruguay"
+    />
+    <meta name="author" content="Centro Ganesha" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://centroganesha.com" />
+    <meta
+      property="og:image"
+      content="https://centroganesha.com/imagen-preview.jpg"
+    />
+
+    <!-- Fonts — preconnect + preload + stylesheet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" /></head
+  >b
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href={fontsUrl} />
+  <link rel="stylesheet" href={fontsUrl} />
+
+  <link rel="icon" type="image/x-icon" href="/public/favicon-1.ico" />
+  <link rel="canonical" href="https://centroganesha.com" />
+
+  <title>{title}</title>
+
+  <body class="min-h-screen flex flex-col">
+    <Navbar />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      function initScrollAnimations() {
+        const scrollElements = document.querySelectorAll("[data-scroll]");
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const el = entry.target as HTMLElement;
+                const animation = el.dataset.scroll;
+                el.classList.remove("scroll-hidden");
+                el.classList.add(`scroll-${animation}`);
+                observer.unobserve(el);
+              }
+            });
+          },
+          {
+            threshold: 0.1,
+            rootMargin: "0px 0px -30px 0px",
+          },
+        );
+
+        scrollElements.forEach((el) => observer.observe(el));
+      }
+
+      // Inicializar cuando el navegador esté idle
+      if ("requestIdleCallback" in window) {
+        requestIdleCallback(initScrollAnimations);
+      } else {
+        setTimeout(initScrollAnimations, 50);
+      }
+
+      // Restaurar al volver desde bfcache
+      window.addEventListener("pageshow", (event) => {
+        if (event.persisted) {
+          initScrollAnimations();
+        }
+      });
+    </script>
+  </body>
+</html>

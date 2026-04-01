@@ -1,0 +1,169 @@
+---
+// ContactForm — Formspree integration
+const formspreeEndpoint = "https://formspree.io/f/myknbkog";
+---
+
+<section id="contacto" class="py-20 sm:py-28 bg-ganesha-cream">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      <!-- Left: text -->
+      <div class="scroll-hidden" data-scroll="fade-in-left" style="animation-delay: 0.1s">
+        <h2
+          class="font-heading text-3xl sm:text-4xl md:text-5xl text-ganesha-primary mb-4"
+        >
+          Ponte en contacto con nosotros
+        </h2>
+        <div class="w-16 h-0.5 bg-ganesha-accent mb-6"></div>
+        <p
+          class="text-ganesha-text-light text-base sm:text-lg leading-relaxed mb-8"
+        >
+          Estamos aquí para acompañarte en tu camino de sanación. Completá el
+          formulario y nos pondremos en contacto para agendar tu sesión.
+        </p>
+
+        <!-- Contact info -->
+        <div class="space-y-4">
+          <div class="flex items-center gap-3 text-ganesha-text">
+            <span
+              class="w-10 h-10 rounded-full bg-ganesha-primary/10 flex items-center justify-center text-ganesha-primary text-sm"
+            >
+              ✉
+            </span>
+            <span class="text-sm">fabianasazales@centroganesha.com</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: form -->
+      <div
+        class="bg-ganesha-white rounded-2xl p-8 sm:p-10 border border-ganesha-cream-dark shadow-sm scroll-hidden"
+        data-scroll="fade-in-right"
+        style="animation-delay: 0.25s"
+      >
+        <form
+          id="contact-form"
+          action={formspreeEndpoint}
+          method="POST"
+          class="space-y-6"
+        >
+          <!-- Name -->
+          <div>
+            <label
+              for="name"
+              class="block text-sm font-medium text-ganesha-text mb-2"
+            >
+              Nombre completo
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              placeholder="Tu nombre"
+              class="w-full px-4 py-3 rounded-lg border border-ganesha-cream-dark bg-ganesha-cream/50 text-ganesha-text placeholder:text-ganesha-text-light/50 focus:outline-none focus:border-ganesha-accent focus:ring-1 focus:ring-ganesha-accent/30 transition-all duration-300 text-sm"
+            />
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label
+              for="email"
+              class="block text-sm font-medium text-ganesha-text mb-2"
+            >
+              Correo electrónico
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="tu@email.com"
+              class="w-full px-4 py-3 rounded-lg border border-ganesha-cream-dark bg-ganesha-cream/50 text-ganesha-text placeholder:text-ganesha-text-light/50 focus:outline-none focus:border-ganesha-accent focus:ring-1 focus:ring-ganesha-accent/30 transition-all duration-300 text-sm"
+            />
+          </div>
+
+          <!-- Message -->
+          <div>
+            <label
+              for="message"
+              class="block text-sm font-medium text-ganesha-text mb-2"
+            >
+              Mensaje
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              required
+              rows="4"
+              placeholder="Contanos cómo podemos ayudarte..."
+              class="w-full px-4 py-3 rounded-lg border border-ganesha-cream-dark bg-ganesha-cream/50 text-ganesha-text placeholder:text-ganesha-text-light/50 focus:outline-none focus:border-ganesha-accent focus:ring-1 focus:ring-ganesha-accent/30 transition-all duration-300 text-sm resize-none"
+            ></textarea>
+          </div>
+
+          <!-- Submit -->
+          <button
+            type="submit"
+            class="w-full bg-ganesha-accent hover:bg-ganesha-accent-light text-ganesha-primary-dark font-medium px-8 py-3.5 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-ganesha-accent/20 text-sm tracking-wide cursor-pointer"
+          >
+            Enviar mensaje
+          </button>
+
+          <!-- Success message (hidden by default) -->
+          <p
+            id="form-success"
+            class="hidden text-center text-sm text-ganesha-primary font-medium py-2"
+          >
+            ✓ Mensaje enviado exitosamente. ¡Pronto te contactaremos!
+          </p>
+
+          <!-- Error message (hidden by default) -->
+          <p
+            id="form-error"
+            class="hidden text-center text-sm text-red-600 font-medium py-2"
+          >
+            Hubo un error al enviar el mensaje. Por favor intentá nuevamente.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  const successMsg = document.getElementById("form-success");
+  const errorMsg = document.getElementById("form-error");
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    successMsg?.classList.add("hidden");
+    errorMsg?.classList.add("hidden");
+
+    const submitBtn = form.querySelector(
+      'button[type="submit"]',
+    ) as HTMLButtonElement;
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = "Enviando...";
+    submitBtn.disabled = true;
+
+    try {
+      const response = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
+      });
+
+      if (response.ok) {
+        successMsg?.classList.remove("hidden");
+        form.reset();
+      } else {
+        errorMsg?.classList.remove("hidden");
+      }
+    } catch {
+      errorMsg?.classList.remove("hidden");
+    } finally {
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    }
+  });
+</script>

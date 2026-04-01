@@ -1,0 +1,151 @@
+---
+import { Image } from "astro:assets";
+import benefitsImg from "../assets/benefits.webp";
+
+const benefitsLeft = [
+  {
+    num: 1,
+    text: "Suministra energía curativa, rompe los bloqueos energéticos.",
+  },
+  {
+    num: 2,
+    text: "Calma y centra la mente, permitiendo lograr mucho más en un día.",
+  },
+  {
+    num: 3,
+    text: "Favorece la armonía y el equilibrio del organismo.",
+  },
+];
+
+const benefitsRight = [
+  {
+    num: 4,
+    text: "Aumenta la frecuencia vibratoria del cuerpo, lo que garantiza una buena salud y vitalidad.",
+  },
+  {
+    num: 5,
+    text: "Libera el cuerpo de toxinas y elimina los bloqueos mentales y emocionales.",
+  },
+  {
+    num: 6,
+    text: "Inicia la reparación general y la autocuración.",
+  },
+];
+
+const benefitBottom = {
+  num: 7,
+  text: "Ayuda al cuerpo a limpiarse de energía no deseada y tóxica.",
+};
+---
+
+<section
+  id="beneficios"
+  class="min-h-screen bg-ganesha-cream flex items-center overflow-hidden"
+>
+  <div class="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 w-full py-16">
+    <!-- Header -->
+    <div class="text-center mb-14">
+      <span
+        class="block text-xl text-ganesha-primary mb-3 scroll-hidden"
+        data-scroll="fade-in"
+      >
+        ★
+      </span>
+      <h2
+        class="font-heading text-[clamp(2.2rem,5vw,3.5rem)] text-ganesha-text font-normal mb-2 scroll-hidden"
+        data-scroll="fade-in-up"
+      >
+        Beneficios
+      </h2>
+      <p
+        class="text-xs uppercase tracking-[0.2em] text-ganesha-text-light italic scroll-hidden"
+        data-scroll="fade-in-up"
+        style="animation-delay: 0.1s"
+      >
+        Armonía para tu cuerpo, mente y espíritu
+      </p>
+    </div>
+
+    <!-- Main layout: 3 columns -->
+    <div
+      class="grid grid-cols-1 lg:grid-cols-[1fr_auto_1fr] gap-8 lg:gap-12 items-center justify-items-center"
+    >
+      <!-- Left benefits -->
+      <div class="flex flex-col gap-8 lg:gap-10">
+        {
+          benefitsLeft.map((b, i) => (
+            <div
+              class="flex items-start gap-3.5 max-w-[320px] lg:ml-auto lg:text-right lg:flex-row-reverse max-lg:text-left max-lg:flex-row scroll-hidden"
+              data-scroll="fade-in-left"
+              style={`animation-delay: ${i * 0.12}s`}
+            >
+              <span class="shrink-0 w-7 h-7 rounded-full bg-ganesha-primary text-white text-xs font-medium flex items-center justify-center mt-0.5">
+                {b.num}
+              </span>
+              <p class="text-sm leading-relaxed text-ganesha-text-light">
+                {b.text}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- Center image -->
+      <div
+        class="flex justify-center order-first lg:order-none scroll-hidden"
+        data-scroll="scale-in"
+      >
+        <div
+          class="w-[clamp(220px,35vw,300px)] aspect-[3/4] rounded-full overflow-hidden bg-ganesha-primary shadow-[0_16px_48px_rgba(0,0,0,0.1)]"
+        >
+          <Image
+            src={benefitsImg}
+            alt="Persona en estado de bienestar y armonía"
+            class="w-full h-full object-cover"
+            widths={[480, 1920]}
+            sizes="(max-width: 640px) 480, (max-width: 1024px) 35vw, 1920px"
+            format="webp"
+            quality={85}
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <!-- Right benefits -->
+      <div class="flex flex-col gap-8 lg:gap-10">
+        {
+          benefitsRight.map((b, i) => (
+            <div
+              class="flex items-start gap-3.5 max-w-[320px] lg:mr-auto lg:text-left max-lg:text-left scroll-hidden"
+              data-scroll="fade-in-right"
+              style={`animation-delay: ${i * 0.12}s`}
+            >
+              <span class="shrink-0 w-7 h-7 rounded-full bg-ganesha-primary text-white text-xs font-medium flex items-center justify-center mt-0.5">
+                {b.num}
+              </span>
+              <p class="text-sm leading-relaxed text-ganesha-text-light">
+                {b.text}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Bottom benefit -->
+    <div
+      class="flex items-start gap-3.5 justify-center mt-10 max-w-[340px] mx-auto text-left scroll-hidden"
+      data-scroll="fade-in-up"
+      style="animation-delay: 0.4s"
+    >
+      <span
+        class="shrink-0 w-7 h-7 rounded-full bg-ganesha-primary text-white text-xs font-medium flex items-center justify-center mt-0.5"
+      >
+        {benefitBottom.num}
+      </span>
+      <p class="text-sm leading-relaxed text-ganesha-text-light">
+        {benefitBottom.text}
+      </p>
+    </div>
+  </div>
+</section>

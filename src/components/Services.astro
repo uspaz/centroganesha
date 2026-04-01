@@ -1,0 +1,71 @@
+---
+const services = [
+  {
+    title: "Reiki",
+    tag: "Sesiones y clases",
+    description:
+      "Te invitamos a vivir la experiencia del Reiki y descubrir por ti mismo sus beneficios. A través de sus primeras sesiones, podrás conectar con esta práctica y comenzar a experimentar su verdadero potencial para el equilibrio y el bienestar integral.",
+  },
+  {
+    title: "Tarot",
+    tag: "Lectura de cartas",
+    description:
+      "La energía que nos acompaña está en constante movimiento, y el Tarot puede ofrecerte una mirada más clara sobre tu presente y las posibles tendencias de tu futuro. Una lectura pensada para brindarte orientación, reflexión y nuevas perspectivas.",
+  },
+  {
+    title: "Yoga",
+    tag: "Terapia con yoga",
+    description:
+      "Nuestra terapia con yoga combina ejercicios cuidadosamente seleccionados para favorecer la movilidad, liberar tensiones y mejorar la fluidez de músculos y articulaciones. Una experiencia orientada al bienestar físico, mental y emocional.",
+  },
+  {
+    title: "Ho'oponopono",
+    tag: "Sanación hawaiana",
+    description:
+      "Ho'oponopono es una técnica ancestral enfocada en el reconocimiento, la liberación y el perdón. A través de su práctica, es posible iniciar un proceso profundo de limpieza emocional y transformación interior, promoviendo mayor paz y claridad mental.",
+  },
+];
+---
+
+<section
+  id="servicios"
+  class="min-h-screen bg-ganesha-cream flex items-center overflow-hidden"
+>
+  <div class="max-w-7xl mx-auto px-6 lg:px-16 w-full py-16">
+    <!-- Section heading -->
+    <div class="text-center mb-14">
+      <h2
+        class="font-heading text-[clamp(2.2rem,5vw,3.5rem)] text-ganesha-primary font-normal mb-4 scroll-hidden"
+        data-scroll="fade-in-up"
+      >
+        Servicios
+      </h2>
+      <div class="w-16 h-0.5 bg-ganesha-accent mx-auto"></div>
+    </div>
+
+    <!-- Service cards — 2x2 grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
+      {
+        services.map((service, i) => (
+          <article
+            class="bg-ganesha-white border border-ganesha-cream-dark rounded-2xl px-9 py-8 transition-all duration-500 hover:border-ganesha-accent/30 hover:shadow-[0_12px_40px_rgba(74,90,60,0.08)] hover:-translate-y-1.5 group scroll-hidden"
+            data-scroll="fade-in-up"
+            style={`animation-delay: ${0.1 + i * 0.15}s`}
+          >
+            <div class="flex flex-col md:flex-row items-baseline justify-between mb-4 gap-4">
+              <h3 class="font-heading text-[clamp(1.5rem,3vw,2rem)] text-ganesha-primary font-normal italic transition-colors duration-300 group-hover:text-ganesha-primary-dark">
+                {service.title}
+              </h3>
+              <span class="text-[0.65rem] uppercase tracking-[0.15em] text-ganesha-text-light whitespace-nowrap shrink-0">
+                {service.tag}
+              </span>
+            </div>
+            <p class="text-[0.9rem] leading-7 text-ganesha-text-light">
+              {service.description}
+            </p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

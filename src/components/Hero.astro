@@ -1,0 +1,70 @@
+---
+import { Image } from 'astro:assets';
+import heroImage from '../assets/bg-hero-2.webp';
+
+// Hero — Sección principal con imagen de fondo completa
+---
+
+<section
+  id="inicio"
+  class="relative min-h-screen flex items-center justify-center pt-16"
+>
+  <!-- Imagen de fondo -->
+  <div class="absolute inset-0">
+    <Image
+      src={heroImage}
+      alt="Ambiente de bienestar con planta decorativa"
+      class="w-full h-full object-cover"
+      loading="eager"
+      fetchpriority="high"
+      widths={[480, 768, 1024, 1440, 1920]}
+      sizes="100vw"
+      format="webp"
+      quality={80}
+    />
+    <!-- Overlay sutil para legibilidad -->
+    <div class="absolute inset-0 bg-ganesha-primary-dark/25"></div>
+  </div>
+
+  <!-- Contenido centrado -->
+  <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <!-- Título principal -->
+    <h1
+      class="font-heading text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-white italic mb-6 drop-shadow-lg animate-fade-in"
+    >
+      Centro Ganesha
+    </h1>
+
+    <!-- Subtítulo -->
+    <p
+      class="text-sm sm:text-base md:text-lg text-white/85 uppercase tracking-[0.2em] font-light mb-12 animate-fade-in-up"
+      style="animation-delay: 0.4s; opacity: 0;"
+    >
+      Recreación profesional & bienestar integral
+    </p>
+
+    <!-- CTA — estilo outline como en el diseño -->
+    <a
+      href="#servicios"
+      class="inline-block border border-white/60 hover:border-white text-white uppercase tracking-[0.15em] text-xs sm:text-sm px-10 py-4 transition-all duration-500 hover:bg-white/10 hover:scale-105 hover:shadow-[0_0_30px_rgba(255,255,255,0.15)] animate-fade-in-up"
+      style="animation-delay: 0.7s; opacity: 0;"
+    >
+      Descubre nuestros servicios
+    </a>
+  </div>
+
+  <!-- Curva decorativa inferior para transicionar al fondo crema -->
+  <div class="absolute bottom-0 left-0 right-0">
+    <svg
+      viewBox="0 0 1440 60"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      class="w-full"
+      preserveAspectRatio="none"
+    >
+      <path
+        d="M0 60L1440 60L1440 30C1440 30 1200 0 720 0C240 0 0 30 0 30L0 60Z"
+        fill="#F5F0E8"></path>
+    </svg>
+  </div>
+</section>

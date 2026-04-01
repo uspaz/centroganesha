@@ -1,0 +1,65 @@
+---
+import { Image } from "astro:assets";
+import profileImg from "../assets/profile.webp";
+---
+
+<section
+  id="sobre-mi"
+  class="min-h-screen bg-ganesha-cream flex items-center overflow-hidden"
+>
+  <div class="max-w-7xl w-full mx-auto px-6 sm:px-10 lg:px-16 py-16 lg:py-0">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <!-- Left: Foto circular -->
+      <div class="flex justify-center lg:justify-start">
+        <div
+          class="w-[clamp(280px,45vw,420px)] h-[clamp(280px,45vw,420px)] rounded-full overflow-hidden shadow-[0_0_0_8px_var(--color-ganesha-cream-dark),0_0_0_10px_rgba(201,169,110,0.3),0_20px_50px_rgba(0,0,0,0.08)] max-lg:mx-auto scroll-hidden"
+          data-scroll="scale-in"
+        >
+          <Image
+            src={profileImg}
+            alt="Fabiana — Maestra de Reiki y fundadora de Centro Ganesha"
+            class="w-full h-full object-cover"
+            widths={[280, 420, 640]}
+            sizes="(max-width: 640px) 280px, (max-width: 1024px) 45vw, 420px"
+            format="webp"
+            quality={85}
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <!-- Right: Bio -->
+      <div class="text-center lg:text-left">
+        <h2
+          class="font-heading text-[clamp(2rem,4.5vw,3.2rem)] leading-[1.15] text-ganesha-text mb-6 font-normal scroll-hidden"
+          data-scroll="fade-in-up"
+          style="animation-delay: 0.15s"
+        >
+          Mi nombre es <em class="text-ganesha-primary italic">Fabiana</em> y practico
+          <em class="text-ganesha-primary italic">Reiki</em> desde hace 8 años
+        </h2>
+
+        <p
+          class="text-[0.95rem] leading-[1.8] text-ganesha-text-light mb-5 max-w-[520px] mx-auto lg:mx-0 scroll-hidden"
+          data-scroll="fade-in-up"
+          style="animation-delay: 0.3s"
+        >
+          Realice mi iniciación hace más de 8 años luego de tener una excelente
+          experiencia con Reiki, esto me abrió la mente para que actualmente sea
+          maestra certificada en varias áreas como Reiki, Tarot, Yoga y Terapia
+          con Ho'oponopono.
+        </p>
+
+        <p
+          class="text-[0.95rem] leading-[1.8] text-ganesha-text-light mb-5 max-w-[520px] mx-auto lg:mx-0 scroll-hidden"
+          data-scroll="fade-in-up"
+          style="animation-delay: 0.45s"
+        >
+          Desde entonces lo practico para mejorar tanto mi vida y la de mis
+          pacientes, gracias a este increíble método de sanación muchas personas
+          han logrado mejorar sus situaciones.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
