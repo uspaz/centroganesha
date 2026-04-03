@@ -1,0 +1,257 @@
+---
+import { Image } from "astro:assets";
+
+import certificadoAkashicos from "../assets/certificado-akashicos.png";
+import certificadoClarividencia from "../assets/certificado-clarividencia.png";
+import certificadoEmocional from "../assets/certificado-emocional.png";
+import certificadoMedium from "../assets/certificado-medium.png";
+import certificadoUsui2 from "../assets/certificado-usui-2.png";
+import certificadoUsui from "../assets/certificado-usui.png";
+
+const certificados = [
+  { src: certificadoAkashicos, alt: "Certificado Registros Akáshicos" },
+  { src: certificadoClarividencia, alt: "Certificado Clarividencia" },
+  { src: certificadoEmocional, alt: "Certificado Sanación Emocional" },
+  { src: certificadoMedium, alt: "Certificado Medium" },
+  { src: certificadoUsui2, alt: "Certificado Reiki Usui Nivel 2" },
+  { src: certificadoUsui, alt: "Certificado Reiki Usui" },
+];
+---
+
+<section class="py-20 sm:py-28 bg-ganesha-cream overflow-hidden">
+  <div class="max-w-7xl mx-auto px-6 lg:px-16 w-full">
+    <!-- Section heading -->
+    <div class="text-center mb-14">
+      <h2
+        class="font-heading text-[clamp(2.2rem,5vw,3.5rem)] text-ganesha-primary font-normal mb-4 scroll-hidden"
+        data-scroll="fade-in-up"
+      >
+        Certificaciones
+      </h2>
+      <div class="w-16 h-0.5 bg-ganesha-accent mx-auto"></div>
+    </div>
+
+    <!-- Carousel -->
+    <div
+      class="scroll-hidden"
+      data-scroll="fade-in-up"
+      style="animation-delay: 0.15s"
+    >
+      <!-- Carousel + arrows wrapper -->
+      <div class="relative">
+        <!-- Viewport (clips overflow) -->
+        <div id="cert-viewport" class="mx-12 lg:mx-0">
+          <!-- Track (moves left/right) -->
+          <div id="cert-track" class="flex">
+            {
+              certificados.map((cert, i) => (
+                <div class="cert-slide flex-shrink-0 box-border" data-index={i}>
+                  <div class="bg-ganesha-white border border-ganesha-cream-dark rounded-2xl overflow-hidden shadow-sm transition-all duration-500 hover:shadow-[0_12px_40px_rgba(74,90,60,0.08)] hover:-translate-y-1">
+                    <div class="aspect-[4/3] w-full overflow-hidden flex items-center justify-center bg-ganesha-cream/50 p-4 sm:p-6">
+                      <Image
+                        src={cert.src}
+                        alt={cert.alt}
+                        width={800}
+                        height={600}
+                        class="w-full h-full object-contain"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Navigation arrows (outside overflow:hidden viewport) -->
+        <button
+          id="cert-prev"
+          class="absolute hidden left-0 lg:-left-5 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-ganesha-white/90 border border-ganesha-cream-dark shadow-md md:flex items-center justify-center text-ganesha-primary hover:bg-ganesha-accent hover:text-ganesha-white hover:border-ganesha-accent transition-all duration-300 cursor-pointer z-10 backdrop-blur-sm"
+          aria-label="Anterior certificado"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M15 19l-7-7 7-7"></path>
+          </svg>
+        </button>
+
+        <button
+          id="cert-next"
+          class="absolute hidden right-0 lg:-right-5 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-ganesha-white/90 border border-ganesha-cream-dark shadow-md md:flex items-center justify-center text-ganesha-primary hover:bg-ganesha-accent hover:text-ganesha-white hover:border-ganesha-accent transition-all duration-300 cursor-pointer z-10 backdrop-blur-sm"
+          aria-label="Siguiente certificado"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Dot indicators -->
+      <div class="flex justify-center gap-2.5 mt-8" id="cert-dots"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #cert-viewport {
+    overflow: hidden;
+  }
+  #cert-track {
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+</style>
+
+<script>
+  const viewport = document.getElementById("cert-viewport") as HTMLElement;
+  const track = document.getElementById("cert-track") as HTMLElement;
+  const prevBtn = document.getElementById("cert-prev") as HTMLElement;
+  const nextBtn = document.getElementById("cert-next") as HTMLElement;
+  const dotsContainer = document.getElementById("cert-dots") as HTMLElement;
+  const slides = Array.from(track.children) as HTMLElement[];
+  const TOTAL = slides.length;
+  const GAP = 24; // px gap between slides
+
+  let currentPage = 0;
+  let slidesPerView = 1;
+  let pageCount = TOTAL;
+
+  // ---- Layout ----
+  function layout() {
+    const containerWidth = viewport.clientWidth;
+    slidesPerView = window.innerWidth >= 1024 ? 2 : 1;
+    pageCount = Math.ceil(TOTAL / slidesPerView);
+
+    // Set slide widths
+    const slideWidth =
+      slidesPerView === 2
+        ? (containerWidth - GAP) / 2 // two slides + one gap fill the container
+        : containerWidth; // one slide fills the container
+
+    slides.forEach((s, i) => {
+      s.style.width = slideWidth + "px";
+      s.style.marginRight = i < TOTAL - 1 ? GAP + "px" : "0px";
+    });
+
+    // Clamp page
+    if (currentPage >= pageCount) currentPage = pageCount - 1;
+
+    // Build dots
+    buildDots();
+    moveTo(currentPage, false);
+  }
+
+  // ---- Move ----
+  function moveTo(page: number, animate = true) {
+    page = Math.max(0, Math.min(page, pageCount - 1));
+    currentPage = page;
+
+    // The first slide of this page
+    const firstSlideIndex = page * slidesPerView;
+    const targetSlide = slides[firstSlideIndex];
+
+    // Calculate offset: the slide's left edge relative to the track
+    const offset = targetSlide.offsetLeft;
+
+    track.style.transition = animate
+      ? "transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)"
+      : "none";
+    track.style.transform = `translateX(-${offset}px)`;
+
+    updateDots();
+    updateArrows();
+  }
+
+  // ---- Dots ----
+  function buildDots() {
+    dotsContainer.innerHTML = "";
+    for (let i = 0; i < pageCount; i++) {
+      const dot = document.createElement("button");
+      dot.className =
+        "cert-dot w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer";
+      dot.setAttribute("aria-label", `Ver página ${i + 1}`);
+      dot.dataset.page = String(i);
+      dot.addEventListener("click", () => moveTo(i));
+      dotsContainer.appendChild(dot);
+    }
+    updateDots();
+  }
+
+  function updateDots() {
+    const dots = dotsContainer.querySelectorAll(".cert-dot");
+    dots.forEach((dot, i) => {
+      if (i === currentPage) {
+        dot.classList.add("bg-ganesha-accent", "scale-110");
+        dot.classList.remove(
+          "bg-ganesha-cream-dark",
+          "hover:bg-ganesha-accent/50",
+        );
+      } else {
+        dot.classList.remove("bg-ganesha-accent", "scale-110");
+        dot.classList.add(
+          "bg-ganesha-cream-dark",
+          "hover:bg-ganesha-accent/50",
+        );
+      }
+    });
+  }
+
+  // ---- Arrows ----
+  function updateArrows() {
+    prevBtn.style.opacity = currentPage <= 0 ? "0.35" : "1";
+    prevBtn.style.pointerEvents = currentPage <= 0 ? "none" : "auto";
+    nextBtn.style.opacity = currentPage >= pageCount - 1 ? "0.35" : "1";
+    nextBtn.style.pointerEvents =
+      currentPage >= pageCount - 1 ? "none" : "auto";
+  }
+
+  prevBtn.addEventListener("click", () => moveTo(currentPage - 1));
+  nextBtn.addEventListener("click", () => moveTo(currentPage + 1));
+
+  // ---- Touch swipe ----
+  let startX = 0;
+  viewport.addEventListener(
+    "touchstart",
+    (e) => {
+      startX = e.changedTouches[0].clientX;
+    },
+    { passive: true },
+  );
+  viewport.addEventListener(
+    "touchend",
+    (e) => {
+      const diff = startX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        moveTo(currentPage + (diff > 0 ? 1 : -1));
+      }
+    },
+    { passive: true },
+  );
+
+  // ---- Resize ----
+  let resizeTimer: ReturnType<typeof setTimeout>;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(layout, 120);
+  });
+
+  // ---- Init ----
+  layout();
+</script>

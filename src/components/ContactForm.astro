@@ -1,13 +1,17 @@
 ---
 // ContactForm — Formspree integration
-const formspreeEndpoint = "https://formspree.io/f/myknbkog";
+const formspreeEndpoint = import.meta.env.CONNECTION_FORM;
 ---
 
 <section id="contacto" class="py-20 sm:py-28 bg-ganesha-cream">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
       <!-- Left: text -->
-      <div class="scroll-hidden" data-scroll="fade-in-left" style="animation-delay: 0.1s">
+      <div
+        class="scroll-hidden"
+        data-scroll="fade-in-left"
+        style="animation-delay: 0.1s"
+      >
         <h2
           class="font-heading text-3xl sm:text-4xl md:text-5xl text-ganesha-primary mb-4"
         >
@@ -29,7 +33,7 @@ const formspreeEndpoint = "https://formspree.io/f/myknbkog";
             >
               ✉
             </span>
-            <span class="text-sm">fabianasazales@centroganesha.com</span>
+            <span class="text-sm">fabianasasalez@centroganesha.com</span>
           </div>
         </div>
       </div>
